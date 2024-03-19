@@ -1,0 +1,69 @@
+- name: Set Hostname R1
+  hosts: R1
+  tasks:
+    - name: Set hostname
+      arista.eos.eos_hostname:
+        config:
+          hostname: R1
+        state: merged
+
+- name: Set Hostname R2
+  hosts: R2
+  tasks:
+    - name: Set hostname
+      arista.eos.eos_hostname:
+        config:
+          hostname: R2
+        state: merged
+
+- name: Set Hostname R3
+  hosts: R3
+  tasks:
+    - name: Set hostname
+      arista.eos.eos_hostname:
+        config:
+          hostname: R3
+        state: merged
+
+- name: Set Hostname R4
+  hosts: R4
+  tasks:
+    - name: Set hostname
+      arista.eos.eos_hostname:
+        config:
+          hostname: R4
+        state: merged
+
+- name: Set Hostname R5
+  hosts: R5
+  tasks:
+    - name: Set hostname
+      arista.eos.eos_hostname:
+        config:
+          hostname: R5
+        state: merged
+
+- name: Basic Configurations
+  hosts: routers
+  tasks:
+    - name: Create user
+      arista.eos.eos_user:
+        name: " {{ user_name }}"
+        configured_password: "{{ user_password  }}"
+        state: present
+    - name: Disable Telnet
+      arista.eos.eos_config:
+        lines:
+          - "shutdown"
+        parents: "management telnet"
+    - name: Enable SSH
+      arista.eos.eos_config:
+        lines:
+          - "no shutdown"
+        parents: "management ssh"
+    - name: Enable logging
+      arista.eos.eos_logging:
+        dest: on
+        state: present
+
+
