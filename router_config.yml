@@ -1,0 +1,133 @@
+- name: Configure R1
+  hosts: R1
+  vars:
+    hostname: R1
+    users:
+      - name: "{{ username  }}"
+        password: "{{ password }}"
+        privilege: 1
+    interfaces:
+      - name: Ethernet1
+        mode: no switchport
+        address: 10.3.0.1/30
+      - name: Ethernet2
+        mode: no switchport
+        address: 10.3.0.13/30
+    ospf_process_id: 1
+    ospf_prefix: 10.3.0.0/24
+    ospf_area: 0.0.0.0
+  tasks:
+    - name: Generate configuration from template
+      ansible.builtin.template:
+        src: templates/router_configurations.j2
+        dest: templates/R1_config.txt
+
+    - name: Apply configuration to the router
+      arista.eos.eos_config:
+        src: templates/R1_config.txt
+
+- name: Configure R2
+  hosts: R2
+  vars:
+    hostname: R2
+    users:
+      - name: "{{ username  }}"
+        password: "{{ password }}"
+        privilege: 1
+    interfaces:
+      - name: Ethernet1
+        mode: no switchport
+        address: 10.3.0.2/30
+      - name: Ethernet2
+        mode: no switchport
+        address: 10.3.0.4/30
+    ospf_process_id: 1
+    ospf_prefix: 10.3.0.0/24
+    ospf_area: 0.0.0.0
+  tasks:
+    - name: Generate configuration from template
+      ansible.builtin.template:
+        src: templates/router_configurations.j2
+        dest: templates/R2_config.txt
+
+    - name: Apply configuration to the router
+      arista.eos.eos_config:
+        src: templates/R2_config.txt
+
+- name: Configure R3
+  hosts: R3
+  vars:
+    hostname: R3
+    users:
+      - name: "{{ username  }}"
+        password: "{{ password }}"
+        privilege: 1
+    interfaces:
+      - name: Ethernet1
+        mode: no switchport
+        address: 10.3.0.6/30
+    ospf_process_id: 1
+    ospf_prefix: 10.3.0.0/24
+    ospf_area: 0.0.0.0
+  tasks:
+    - name: Generate configuration from template
+      ansible.builtin.template:
+        src: templates/router_configurations.j2
+        dest: templates/R3_config.txt
+
+    - name: Apply configuration to the router
+      arista.eos.eos_config:
+        src: templates/R3_config.txt
+
+- name: Configure R4
+  hosts: R4
+  vars:
+    hostname: R4
+    users:
+      - name: "{{ username  }}"
+        password: "{{ password }}"
+        privilege: 1
+    interfaces:
+      - name: Ethernet1
+        mode: no switchport
+        address: 10.3.0.12/30
+      - name: Ethernet2
+        mode: no switchport
+        address: 10.3.0.17/30
+    ospf_process_id: 1
+    ospf_prefix: 10.3.0.0/24
+    ospf_area: 0.0.0.0
+  tasks:
+    - name: Generate configuration from template
+      ansible.builtin.template:
+        src: templates/router_configurations.j2
+        dest: templates/R4_config.txt
+
+    - name: Apply configuration to the router
+      arista.eos.eos_config:
+        src: templates/R4_config.txt
+
+- name: Configure R5
+  hosts: R5
+  vars:
+    hostname: R5
+    users:
+      - name: "{{ username  }}"
+        password: "{{ password }}"
+        privilege: 1
+    interfaces:
+      - name: Ethernet1
+        mode: no switchport
+        address: 10.3.0.16/30
+    ospf_process_id: 1
+    ospf_prefix: 10.3.0.0/24
+    ospf_area: 0.0.0.0
+  tasks:
+    - name: Generate configuration from template
+      ansible.builtin.template:
+        src: templates/router_configurations.j2
+        dest: templates/R5_config.txt
+
+    - name: Apply configuration to the router
+      arista.eos.eos_config:
+        src: templates/R5_config.txt
