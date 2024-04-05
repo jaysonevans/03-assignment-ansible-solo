@@ -1,4 +1,6 @@
 - hosts: routers
+  vars_files:
+    - network_config/vars/secrets.yml
   tasks:
     - name: Configure Routers
       include_role:
