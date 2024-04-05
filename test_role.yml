@@ -1,0 +1,5 @@
+- hosts: routers
+  tasks:
+    - name: Configure Routers
+      include_role:
+        name: network_config

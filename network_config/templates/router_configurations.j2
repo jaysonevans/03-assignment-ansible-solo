@@ -1,0 +1,17 @@
+hostname {{ hostname }}
+
+management telnet
+  shutdown
+
+management ssh
+  no shutdown
+
+logging on
+
+{% for interface in interfaces %}
+interface {{ interface.name }}
+  {{ interface.mode }}
+{% endfor %}
+
+router ospf {{ ospf_process_id }}
+  network {{ ospf_prefix }}  area {{ ospf_area }} 
