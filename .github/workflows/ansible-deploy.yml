@@ -1,0 +1,14 @@
+name: Deploy Ansible
+on: workflow_dispatch
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Install pipx
+              run: |
+                sudo apt install pipx
+                pipx ensurepath 
