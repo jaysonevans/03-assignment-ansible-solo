@@ -15,15 +15,8 @@ jobs:
                 
             - name: Install Ansible
               run: pipx install --include-deps ansible
-
-            - name: Install Docker
-              run: apt install -y docker-ce
-
-            - name: Install ContainerLab
-              run: |
-                echo "deb [trusted=yes] https://apt.fury.io/netdevops/ /" | \
-                tee -a /etc/apt/sources.list.d/netdevops.list
-                apt update && apt install containerlab
-
-            - name: Start ContainerLab with topology
-              run: containerlab deploy --topo topology.yml
+            
+            - name: Run playbook
+              run: ansible-playbook -i hosts.ini test_role.yml --extra-vars "vault_password=${{ secrets.TEST_ANSIBLE_VAULT_SECRET }}"
+              env:
+                ANSIBLE_HOST_KEY_CHECKING: false
