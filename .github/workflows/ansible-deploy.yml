@@ -11,4 +11,16 @@ jobs:
             - name: Install pipx
               run: |
                 sudo apt install pipx
-                pipx ensurepath 
+                pipx ensurepath
+                
+            - name: Install Ansible
+              run: pipx install --include-deps ansible
+
+            - name: Install ContainerLab
+              run: |
+                echo "deb [trusted=yes] https://apt.fury.io/netdevops/ /" | \
+                tee -a /etc/apt/sources.list.d/netdevops.list
+                apt update && sudo apt install containerlab
+
+            - name: Start ContainerLab with topology
+              run: containerlab deploy --topo topology.yml
