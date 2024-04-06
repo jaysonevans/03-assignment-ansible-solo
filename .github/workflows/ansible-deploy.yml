@@ -16,11 +16,14 @@ jobs:
             - name: Install Ansible
               run: pipx install --include-deps ansible
 
+            - name: Install Docker
+              run: apt install -y docker-ce
+
             - name: Install ContainerLab
               run: |
                 echo "deb [trusted=yes] https://apt.fury.io/netdevops/ /" | \
                 tee -a /etc/apt/sources.list.d/netdevops.list
-                apt update && sudo apt install containerlab
+                apt update && apt install containerlab
 
             - name: Start ContainerLab with topology
               run: containerlab deploy --topo topology.yml
