@@ -11,4 +11,12 @@ jobs:
             - name: Install pipx
               run: |
                 sudo apt install pipx
-                pipx ensurepath 
+                pipx ensurepath
+                
+            - name: Install Ansible
+              run: pipx install --include-deps ansible
+            
+            - name: Run playbook
+              run: ansible-playbook -i hosts.ini test_role.yml --extra-vars "vault_password=${{ secrets.TEST_ANSIBLE_VAULT_SECRET }}"
+              env:
+                ANSIBLE_HOST_KEY_CHECKING: false
